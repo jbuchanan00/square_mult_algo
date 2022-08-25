@@ -14,6 +14,28 @@ int count_occurences(char t, std::string str) {
 	return count;
 }
 
+int compute_mod(std::string divisor, int mod) {
+
+	std::bitset<32> x(std::stoi(divisor.substr(divisor.find("^") + 1)));
+	std::string bit_rep = x.to_string();
+	bit_rep = bit_rep.substr(bit_rep.find("1"));
+	std::cout << bit_rep << std::endl;
+	std::string mod_rep = "";
+
+
+	std::string base = divisor.substr(0, divisor.find('^'));
+	int base_int = std::stoi(base); //need to keep original base for multiply operations
+	int result = std::stoi(base); //the int being manipulated
+
+	for (int i = 0; i < bit_rep.length() - 1; i++) {
+		result = (result * result) % mod;
+		if (bit_rep[i + 1] == '1') {
+			result = (base_int * result) % mod;
+		}
+	}
+	return result;
+}
+
 
 int main() {
 
@@ -24,44 +46,9 @@ int main() {
 	int mod = 0;
 	std::cin >> mod;
 	std::cout << divisor << "%" << mod << std::endl;
-	std::bitset<32> x(std::stoi(divisor.substr(divisor.find("^") + 1)));
-	std::string bit_rep = x.to_string();
-	bit_rep = bit_rep.substr(bit_rep.find("1"));
-	std::cout << bit_rep << std::endl;
-	std::string mod_rep = "";
 	
-	int j = 0; //position in the operation array, starts after the first s
-	int ones = count_occurences('1', bit_rep);
-	int zeroes = count_occurences('0', bit_rep);
-	int arr_len = (ones-1) * 2 + zeroes;
-	char* operation;
-	operation = new char[arr_len];
-
-	
-	for (int i = 0; i < bit_rep.length() - 1; i++) {
-		operation[j] = 's';
-		if (bit_rep[i + 1] == '1') {
-			operation[j + 1] = 'm';
-			j++;
-		}
-		j++;
-	}
-
-	std::string base = divisor.substr(0, divisor.find('^'));
-	int base_int = std::stoi(base); //need to keep original base for multiply operations
-	int result = std::stoi(base); //the int being manipulated
-	for (int k = 0; k < arr_len; k++) {
-		if (operation[k] == 's') {
-			result = (result * result) % mod;
-		}
-		else if (operation[k] == 'm') {
-			result = (base_int * result) % mod;
-		}
-	}
-
-	std::cout << std::endl;
+	int result = compute_mod(divisor, mod);
 	std::cout << result << std::endl;
 
-	delete[] operation;
 	return 0;
 }
