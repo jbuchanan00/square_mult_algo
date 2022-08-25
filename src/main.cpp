@@ -35,7 +35,8 @@ int main() {
 	int ones = count_occurences('1', bit_rep);
 	int zeroes = count_occurences('0', bit_rep);
 	char* operation;
-	operation = new char[ones * 2 + zeroes];
+	operation = new char[(ones) * 2 + zeroes];
+	std::cout << (ones-1)*2+zeroes << std::endl;
 
 	while (bit_rep != mod_rep) {
 		if (bit_rep[i] == '0') {
@@ -43,10 +44,16 @@ int main() {
 			mod_rep += '0';
 			j++;
 		}
-		else if (bit_rep[i] == '1') {
+		else if (bit_rep[i] == '1' && i != 0) {
 			mod_rep += '1';
-			operation[j] = 'm';
-			operation[j + 1] = 's';
+			operation[j] = 's';
+			operation[j + 1] = 'm';
+			j += 2;
+		}
+		else if (i == 0) {
+			mod_rep += '1';
+			operation[j] = 's';
+			operation[j + 1] = 'm';
 			j += 2;
 		}
 		i++;
