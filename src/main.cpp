@@ -47,10 +47,20 @@ int main() {
 		j++;
 	}
 
+	std::string base = divisor.substr(0, divisor.find('^'));
+	int base_int = std::stoi(base); //need to keep original base for multiply operations
+	int result = std::stoi(base); //the int being manipulated
 	for (int k = 0; k < arr_len; k++) {
-		std::cout << operation[k];
+		if (operation[k] == 's') {
+			result = (result * result) % mod;
+		}
+		else if (operation[k] == 'm') {
+			result = (base_int * result) % mod;
+		}
 	}
+
 	std::cout << std::endl;
+	std::cout << result << std::endl;
 
 	delete[] operation;
 	return 0;
