@@ -30,37 +30,25 @@ int main() {
 	std::cout << bit_rep << std::endl;
 	std::string mod_rep = "";
 	
-	int i = 0; //position in the bit representation
-	int j = 0; //position in the operation array
+	int j = 0; //position in the operation array, starts after the first s
 	int ones = count_occurences('1', bit_rep);
 	int zeroes = count_occurences('0', bit_rep);
+	int arr_len = (ones-1) * 2 + zeroes;
 	char* operation;
-	operation = new char[(ones) * 2 + zeroes];
-	std::cout << (ones-1)*2+zeroes << std::endl;
+	operation = new char[arr_len];
 
-	while (bit_rep != mod_rep) {
-		if (bit_rep[i] == '0') {
-			operation[j] = 's';
-			mod_rep += '0';
+	
+	for (int i = 0; i < bit_rep.length() - 1; i++) {
+		operation[j] = 's';
+		if (bit_rep[i + 1] == '1') {
+			operation[j + 1] = 'm';
 			j++;
 		}
-		else if (bit_rep[i] == '1' && i != 0) {
-			mod_rep += '1';
-			operation[j] = 's';
-			operation[j + 1] = 'm';
-			j += 2;
-		}
-		else if (i == 0) {
-			mod_rep += '1';
-			operation[j] = 's';
-			operation[j + 1] = 'm';
-			j += 2;
-		}
-		i++;
+		j++;
 	}
 
-	for (int i = 0; i < sizeof(operation); i++) {
-		std::cout << operation[i];
+	for (int k = 0; k < arr_len; k++) {
+		std::cout << operation[k];
 	}
 	std::cout << std::endl;
 
