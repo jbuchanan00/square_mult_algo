@@ -3,7 +3,7 @@
 #include <string>
 #include <bit>
 #include <exception>
-
+#include <typeinfo>
 
 int count_occurences(char t, std::string str) {
 	int count = 0;
@@ -23,6 +23,12 @@ int compute_mod(std::string divisor, int mod) {
 	}
 	if (it == divisor.begin()) {
 		throw std::invalid_argument("Need a base for the exponent");
+	}
+	if (mod == 0) {
+		throw std::invalid_argument("Cannot mod by 0");
+	}
+	if (mod < 0) {
+		throw std::invalid_argument("This application is not designed for negative mods");
 	}
 
 	std::bitset<32> x(std::stoi(divisor.substr(divisor.find("^") + 1)));
