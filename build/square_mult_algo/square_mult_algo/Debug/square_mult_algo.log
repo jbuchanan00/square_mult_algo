@@ -1,0 +1,5 @@
+﻿  main.cpp
+  The contents of <bit> are available only with C++20 or later.
+C:\Users\Josh\Documents\cpp_projects\square_mult_algo\src\main.cpp(10,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Josh\Documents\cpp_projects\square_mult_algo\src\main.cpp(45,20): warning C4018: '<': signed/unsigned mismatch
+  square_mult_algo.vcxproj -> C:\Users\Josh\Documents\cpp_projects\square_mult_algo\build\square_mult_algo\Debug\square_mult_algo.exe
